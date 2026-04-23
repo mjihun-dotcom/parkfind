@@ -191,15 +191,14 @@ export default function App() {
     setLoading(true);
     setError("");
     try {
-      const payload = {
+      const params = new URLSearchParams({
         ...form,
         timestamp: new Date().toLocaleString("ko-KR", {timeZone:"Asia/Seoul"}),
         source: "파인드(Parkgolf Inside)",
-      };
-      await fetch(SCRIPT_URL, {
-        method:"POST", mode:"no-cors",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify(payload),
+      });
+      await fetch(`${SCRIPT_URL}?${params.toString()}`, {
+        method: "GET",
+        mode:   "no-cors",
       });
       setDone(true);
     } catch(e) {
